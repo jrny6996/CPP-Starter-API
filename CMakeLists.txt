@@ -35,28 +35,41 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(boost_redis)
 
 # Postgres Driver
-FetchContent_Declare(
-  libpqxx
-  GIT_REPOSITORY https://github.com/jtv/libpqxx.git
-  GIT_TAG 7.9.0  # or latest stable release
-)
+# FetchContent_Declare(
+#   libpqxx
+#   GIT_REPOSITORY https://github.com/jtv/libpqxx.git
+#   GIT_TAG 7.9.0  # or latest stable release
+# )
 
-FetchContent_MakeAvailable(libpqxx)
+# FetchContent_MakeAvailable(libpqxx)
 
 
 # Link Crow and OpenSSL
-target_link_libraries(Server PRIVATE Crow::Crow OpenSSL::SSL OpenSSL::Crypto pqxx)
+target_link_libraries(Server PRIVATE Crow::Crow OpenSSL::SSL OpenSSL::Crypto )
 target_include_directories(Server PRIVATE ${boost_redis_SOURCE_DIR}/include)
 
 # Copy static and template directories into the build directory
-add_custom_command(TARGET Server POST_BUILD
+# add_custom_command(TARGET Server POST_BUILD
+#     COMMAND ${CMAKE_COMMAND} -E copy_directory
+#         ${CMAKE_SOURCE_DIR}/src/templates
+#         ${CMAKE_CURRENT_BINARY_DIR}/templates
+# )
+
+# add_custom_command(TARGET Server POST_BUILD
+#     COMMAND ${CMAKE_COMMAND} -E copy_directory
+#         ${CMAKE_SOURCE_DIR}/src/static
+#         ${CMAKE_CURRENT_BINARY_DIR}/static
+# )
+
+add_custom_target(copy_resources ALL
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${CMAKE_SOURCE_DIR}/src/templates
         ${CMAKE_CURRENT_BINARY_DIR}/templates
-)
-
-add_custom_command(TARGET Server POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${CMAKE_SOURCE_DIR}/src/static
         ${CMAKE_CURRENT_BINARY_DIR}/static
+    COMMENT "Copying templates and static directories"
 )
+
+# Make sure the executable depends on the resources being copied
+add_dependencies(Server copy_resources)
