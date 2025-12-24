@@ -1,5 +1,27 @@
 @import "tailwindcss";
 
-h1{
-    color:green;
+
+body {
+    @apply min-h-[100vh] flex flex-col min-w-[100vw] bg-zinc-900;
+}
+
+h1 {
+    @apply text-blue-500 text-3xl;
+}
+
+.container {
+    @apply w-[1000px] mx-auto;
+}
+
+.card {
+    @apply bg-white border shadow rounded-2xl overflow-hidden;
+}
+.card-body{
+    @apply p-8;    
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    @apply block w-full border space-y-2 border-zinc-300;
 }

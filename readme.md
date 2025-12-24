@@ -1,12 +1,16 @@
 # C++, TailwindCSS, HTMX & Mustache
+A ligthweight starter template for monolith C++ Webapps built with CrowC++
 
 ## Dependancies
 For Unix Based systems
-```
-./install_deps.sh
-```
-For windows --cope
-A ligthweight starter template for monolith C++ Webapps built with CrowC++
+`npm i`
+`sudo ./install_deps.sh -y && mkdir build && cd build && cmake ..`
+For windows `cope`
+## Running
+`make && ./Server`
+### Running Dev
+`make && ./Server dev`
+
 ## Features
 
 ### Reactivity

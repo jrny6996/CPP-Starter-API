@@ -14,9 +14,10 @@ sudo apt install -y \
     libboost-regex-dev \
     libssl-dev \
     zlib1g-dev \
+    inotify-tools
+
     # libpqxx-dev
     # libboost-all-dev
 
 
-echo "Installing Tailwind CSS"
-npm install tailwindcss @tailwindcss/cli
+echo "Installing Tailwind CSS" && npm install tailwindcss @tailwindcss/cli
