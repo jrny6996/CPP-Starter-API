@@ -11,6 +11,6 @@ class User{
          return;   
         }
         bool check_exists(){
-            
+            return false;
         };
 };
