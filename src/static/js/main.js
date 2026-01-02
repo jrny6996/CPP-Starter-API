@@ -1,3 +1,10 @@
+import registrationForm from "./forms/register.js"
+
+document.addEventListener("htmx:afterRequest", () => {
+    registrationForm()
+});
+
+
 
 
 
@@ -14,5 +21,6 @@ function main() {
     });
 
 }
+
 main()
 

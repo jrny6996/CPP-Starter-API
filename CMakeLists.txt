@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.14)
 project(CrowApp)
 
-# Use C++17
+
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -12,7 +12,7 @@ include(FetchContent)
 FetchContent_Declare(
   crow
   GIT_REPOSITORY https://github.com/CrowCpp/Crow.git
-  GIT_TAG v1.0+4  # You can choose the latest tag or commit
+  GIT_TAG v1.3.0
 )
 
 FetchContent_MakeAvailable(crow)
@@ -38,18 +38,21 @@ FetchContent_MakeAvailable(boost_redis)
 FetchContent_Declare(
   libpqxx
   GIT_REPOSITORY https://github.com/jtv/libpqxx.git
-  GIT_TAG 7.10.4  # 
+  GIT_TAG 7.10.4  
 )
 
 FetchContent_MakeAvailable(libpqxx)
-# 
+
 FetchContent_Declare(
   fmt
   GIT_REPOSITORY https://github.com/fmtlib/fmt.git
   GIT_TAG 12.1.0  
 )
-
 FetchContent_MakeAvailable(fmt)
+
+
+# find_package(sodium REQUIRED)
+
 
 # Link Crow and OpenSSL
 target_link_libraries(Server PRIVATE Crow::Crow OpenSSL::SSL OpenSSL::Crypto libpqxx::pqxx fmt::fmt)

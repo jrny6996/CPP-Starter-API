@@ -10,7 +10,7 @@ void spin_up_docker_and_watch_templates() {
   if (running) {
     std::cout << "Starting File Watch" << "\n";
 
-    system("docker compose up -d");
+    // system("docker compose up -d");
     system("./watch.sh");
   }
 }
@@ -18,7 +18,6 @@ void spin_up_tailwind_watch() {
   if (running) {
     
     std::cout << "Starting Tailwind Watch" << "\n";
-
     system("npx @tailwindcss/cli -i ../src/static/css/input.css -o ./static/css/output.css --watch");
   }
 }

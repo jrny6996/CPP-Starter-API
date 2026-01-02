@@ -2,6 +2,7 @@
 services:
   db:
     image: postgres:16
+    restart: always
     container_name: my-postgres
     environment:
       POSTGRES_USER: myuser
@@ -16,7 +17,7 @@ services:
   pgadmin:
     image: dpage/pgadmin4:latest
     container_name: pgadmin_gui
-    # restart: always
+    restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@example.com
       PGADMIN_DEFAULT_PASSWORD: mysecretpassword

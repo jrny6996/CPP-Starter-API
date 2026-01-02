@@ -28,7 +28,7 @@ class DbConnection {
     try {
       pqxx::result r{tx.exec(query)};
       tx.commit();
-    //   return r;
+    
     }catch (pqxx::sql_error const &e){
         fmt::print("Error {}", e.what());
     }   
