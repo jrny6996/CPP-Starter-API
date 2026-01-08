@@ -23,7 +23,7 @@ find_package(OpenSSL REQUIRED)
 
 
 # Add your executable
-add_executable(Server src/main.cc)
+add_executable(Server src/main.cpp)
 
 # Redis
 FetchContent_Declare(
