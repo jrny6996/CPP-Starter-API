@@ -1,9 +1,9 @@
-<form hx-post="/api/users" class="card card-body card-border bg-base-100 " id="login">
+<form hx-patch="/api/users" class="card card-body card-border bg-base-100 " id="login">
     <div class="mb-2 flex">
         <span class="card-title  flex-1">
             Login
         </span>
-        <button type="button" hx-get="/" hx-select="#register   " hx-target="#login"
+        <button type="button" hx-get="/" hx-select="#register" hx-target="#login"
             hx-swap="outerHTML">Register</button>
     </div>
 
@@ -12,6 +12,6 @@
     <label for="" class="label">Password</label>
     <input type="password" name="password" id="" class="input w-full">
 
-    <input type="submit" value="Register" class="btn btn-primary">
+    <input type="submit" value="Login" class="btn btn-primary">
   
 </form>

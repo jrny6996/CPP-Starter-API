@@ -9,7 +9,6 @@
 #include "../models/user_model.hpp"
 #include "../services/db_connect.hpp"
 
-
 struct StatusString {
   int http_code;
   std::string res_string;
@@ -31,7 +30,7 @@ std::string user_onboarding(const crow::query_string params) {
 
     std::string hashed_pw = hash_with_secret(pw);
     if (insert_user(email, hashed_pw))
-      status_str = "Creating new user in DB";
+      status_str = "Success! Created new user in DB <hr/>Login: <a href='/login?new-account=true'>here</a>";
     else
       status_str = "failed to insert user";
   }
@@ -41,7 +40,7 @@ std::string user_onboarding(const crow::query_string params) {
 void create_user_route(crow::Crow<BaseMiddleware>& app) {
 
   CROW_ROUTE(app, "/api/users")
-      .methods(crow::HTTPMethod::POST)([](const crow::request& req) {
+      .methods(crow::HTTPMethod::POST, crow::HTTPMethod::PATCH)([](const crow::request& req) {
         crow::HTTPMethod method = req.method;
         std::string msg = "n/a";
         if (crow::method_name(method) == "POST") {
@@ -58,7 +57,7 @@ void create_user_route(crow::Crow<BaseMiddleware>& app) {
         return body;
       });
   CROW_ROUTE(app, "/login")([]() {
-    auto page = crow::mustache::load("partials/_login_form.html");
+    auto page = crow::mustache::load("login.html");
     return page.render();
   });
   return;
