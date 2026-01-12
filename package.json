@@ -5,7 +5,7 @@
     "tailwindcss": "^4.1.18"
   },
   "scripts": {
-    "dev": "concurrently 'docker compose up -d' 'cd build && cmake .. && make && ./Server' 'cd build && ./watch.sh' 'npx @tailwindcss/cli -i ./src/static/input.css -o ./build/static/css/output.css --watch'"
+    "dev": "concurrently  'docker compose up' 'cd build && cmake .. && make && ./Server' 'cd build && ./watch.sh' 'npx @tailwindcss/cli -i ./src/static/input.css -o ./build/static/css/output.css --watch'"
   },
   "devDependencies": {
     "daisyui": "^5.5.14"

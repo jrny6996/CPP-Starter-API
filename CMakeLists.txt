@@ -21,7 +21,6 @@ FetchContent_MakeAvailable(crow)
 find_package(Boost REQUIRED)
 find_package(OpenSSL REQUIRED)
 
-
 # Add your executable
 add_executable(Server src/main.cpp)
 
@@ -51,11 +50,18 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(fmt)
 
 
+FetchContent_Declare(Sodium
+    GIT_REPOSITORY https://github.com/robinlinden/libsodium-cmake.git
+    GIT_TAG e5b985ad0dd235d8c4307ea3a385b45e76c74c6a # HEAD, last updated at 2025-04-13
+)
+set(SODIUM_DISABLE_TESTS ON)
+FetchContent_MakeAvailable(Sodium)
+
 # find_package(sodium REQUIRED)
 
 
 # Link Crow and OpenSSL
-target_link_libraries(Server PRIVATE Crow::Crow OpenSSL::SSL OpenSSL::Crypto libpqxx::pqxx fmt::fmt)
+target_link_libraries(Server PRIVATE Crow::Crow OpenSSL::SSL OpenSSL::Crypto libpqxx::pqxx fmt::fmt sodium )
 target_include_directories(Server PRIVATE ${boost_redis_SOURCE_DIR}/include)
 
 configure_file(

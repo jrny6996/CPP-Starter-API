@@ -1,3 +1,4 @@
+
 watch_sync() {
     SRC="$1"
     DST="$2"
@@ -7,6 +8,7 @@ watch_sync() {
     while inotifywait -r -e modify,create,delete,move "$SRC"; do
         sleep 1
         rsync -a --delete "$SRC/" "$DST/"
+        trap 'exit 0' INT TERM
     done
 }
 
