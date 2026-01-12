@@ -1,26 +1,27 @@
 
 services:
   db:
+    env_file: ".env"
     image: postgres:16
     restart: always
     container_name: my-postgres
     environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: mydb
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_USERNAME} 
+      POSTGRES_DB: ${DB_NAME}
     ports:
-      - "5432:5432"
+      - "${DB_PORT}:${DB_PORT}"
     volumes:
       - pgdata:/var/lib/postgresql/data
   
-
   pgadmin:
+    env_file: ".env"
     image: dpage/pgadmin4:latest
     container_name: pgadmin_gui
     restart: always
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@example.com
-      PGADMIN_DEFAULT_PASSWORD: mysecretpassword
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PW}
     ports:
       - "8080:80"
     depends_on:

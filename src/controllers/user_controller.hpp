@@ -1,38 +1,36 @@
 #pragma once
 #include <crow.h>
-#include <string>
-#include "../models/user_model.hpp" 
-#include <fmt/format.h>
-#include "../middlewares/middleware.hpp"
 #include <crow/http_request.h>
+#include <fmt/format.h>
 #include <sodium.h>
-
-
-bool check_exists(std::string email) {
-  return false;
-}
+#include <optional>
+#include <string>
+#include "../include/bcrypt/include/bcrypt.h"
+#include "../middlewares/middleware.hpp"
+#include "../models/user_model.hpp"
+#include "../services/db_connect.hpp"
 
 bool insert_user(std::string email, std::string hashed_pw) {
   return true;
 }
 
-std::string hash_with_secret(std::string to_hash) {
-  std::string hashed;
-
-  return to_hash;
-}
+struct StatusString{
+  int http_code;
+  std::string res_string;
+};
 
 std::string user_onboarding(const crow::query_string params) {
   std::string status_str = "n/a";
 
   char* email = params.get("email");
   char* pw = params.get("password");
+  CROW_LOG_INFO << email;
   if (!email || !pw) {
     return "Missing required fields";
   }
 
-  if (check_exists(email)) {
-    status_str = "User already exists";
+  if (check_exists(email).status) {
+    status_str = "User already exists. Please login: <a href='/login'>here</a>";
   } else {
     std::string hashed_pw = hash_with_secret(pw);
     insert_user(email, hashed_pw);
@@ -49,7 +47,7 @@ void create_user_route(crow::Crow<BaseMiddleware>& app) {
         std::string msg = "n/a";
         if (crow::method_name(method) == "POST") {
           auto params = req.get_body_params();
-          CROW_LOG_INFO << params;
+          CROW_LOG_INFO << "BOPY PARAMS!!!\n\n\n\n" << params;
           msg = user_onboarding(params);
         }
         std::string body = fmt::format("<h1>User performed {}</h1><h3>{}</h3> ",
