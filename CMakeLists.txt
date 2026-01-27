@@ -24,6 +24,15 @@ find_package(OpenSSL REQUIRED)
 # Add your executable
 add_executable(Server src/main.cpp)
 
+# JWT
+include(FetchContent)
+fetchcontent_declare(jwt-cpp 
+    GIT_REPOSITORY https://github.com/Thalhammer/jwt-cpp.git
+    GIT_TAG 08bcf77a687fb06e34138e9e9fa12a4ecbe12332 # v0.7.0 release
+)
+set(JWT_BUILD_EXAMPLES OFF CACHE BOOL "disable building examples" FORCE)
+fetchcontent_makeavailable(jwt-cpp)
+
 # Redis
 FetchContent_Declare(
   boost_redis
@@ -60,8 +69,10 @@ FetchContent_MakeAvailable(Sodium)
 # find_package(sodium REQUIRED)
 
 
+
+
 # Link Crow and OpenSSL
-target_link_libraries(Server PRIVATE Crow::Crow OpenSSL::SSL OpenSSL::Crypto libpqxx::pqxx fmt::fmt sodium )
+target_link_libraries(Server PRIVATE Crow::Crow OpenSSL::SSL OpenSSL::Crypto libpqxx::pqxx fmt::fmt sodium  jwt-cpp::jwt-cpp)
 target_include_directories(Server PRIVATE ${boost_redis_SOURCE_DIR}/include)
 
 configure_file(

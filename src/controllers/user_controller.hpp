@@ -37,7 +37,7 @@ std::string user_onboarding(const crow::query_string params) {
   return status_str;
 }
 
-void create_user_route(crow::Crow<BaseMiddleware>& app) {
+void add_user_route(crow::Crow<BaseMiddleware>& app) {
 
   CROW_ROUTE(app, "/api/users")
       .methods(crow::HTTPMethod::POST, crow::HTTPMethod::PATCH)([](const crow::request& req) {
@@ -53,7 +53,7 @@ void create_user_route(crow::Crow<BaseMiddleware>& app) {
         CROW_LOG_INFO << "Content-Type: "
                       << req.get_header_value("Content-Type");
         CROW_LOG_INFO << "Raw body: " << req.body;
-
+   
         return body;
       });
   CROW_ROUTE(app, "/login")([]() {

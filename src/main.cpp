@@ -3,7 +3,7 @@
 #include <memory>
 #include <string>
 #include <thread>
-#include "controllers/user_controller.hpp"
+#include "controllers/controllers.hpp"
 #include "crow.h"
 #include "include/dotenv.h"
 #include "middlewares/middleware.hpp"
@@ -33,7 +33,7 @@ int main(int argc, char* argv[]) {
 
     crow::App<BaseMiddleware> app;
 
-    create_user_route(app);
+    add_controllers(app);
     CROW_ROUTE(app, "/")([]() {
       auto page = crow::mustache::load("index.html");
       return page.render();
